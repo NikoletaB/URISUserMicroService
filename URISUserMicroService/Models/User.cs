@@ -19,6 +19,8 @@ namespace URISUserMicroService.Models
         [Required]
         public string Name { get; set; }
 
+       
+
         /// <summary>
         /// Users e-mail address
         /// </summary>
@@ -71,5 +73,10 @@ namespace URISUserMicroService.Models
         /// List of user addresses
         /// </summary>
         public List<UserAddress> UserAddresses { get; set; }
+
+        /// <summary>
+        /// Last Name of user
+        /// </summary>
+        public string LastName { get; set; }
     }
 }

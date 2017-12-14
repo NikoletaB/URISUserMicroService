@@ -18,6 +18,7 @@ namespace URISUserMicroService.DataAccess
 
             retVal.Id = (int)reader["Id"];
             retVal.Name = reader["Name"] as string;
+            retVal.LastName = reader["LastName"] as string;
             retVal.Email = reader["Email"] as string;
             retVal.Address = reader["Address"] as string;
             retVal.ZipCode = reader["ZipCode"] as string;
@@ -42,6 +43,7 @@ namespace URISUserMicroService.DataAccess
                 return @"
                     [User].[Id],
 	                [User].[Name],
+                    [User].[LastName],
 	                [User].[Email],
                     [User].[Address],
                     [User].[ZipCode],
@@ -58,6 +60,7 @@ namespace URISUserMicroService.DataAccess
         {
             command.AddParameter("@Id", SqlDbType.Int, user.Id);
             command.AddParameter("@Name", SqlDbType.NVarChar, user.Name);
+            command.AddParameter("@LastName", SqlDbType.NVarChar, user.LastName);
             command.AddParameter("@Email", SqlDbType.NVarChar, user.Email);
             command.AddParameter("@Address", SqlDbType.NVarChar, user.Address);
             command.AddParameter("@ZipCode", SqlDbType.NVarChar, user.ZipCode);
@@ -120,7 +123,9 @@ namespace URISUserMicroService.DataAccess
                     {
                         while (reader.Read())
                         {
+                           
                             retVal.Add(ReadRow(reader));
+
                         }
                     }
                 }
@@ -150,6 +155,7 @@ namespace URISUserMicroService.DataAccess
                         WHERE
                             [Id] = @Id
                     ", AllColumnSelect);
+                    
 
                     command.AddParameter("@Id", SqlDbType.Int, userId);
                     connection.Open();
@@ -189,6 +195,7 @@ namespace URISUserMicroService.DataAccess
                         INSERT INTO [user].[User]
                         (
                             [Name],
+                            [LastName],
                             [Email],
                             [Address],
                             [ZipCode],
@@ -202,6 +209,7 @@ namespace URISUserMicroService.DataAccess
                         VALUES
                         (
                             @Name,
+                            @LastName,
                             @Email,
                             @Address,
                             @ZipCode,
@@ -263,6 +271,7 @@ namespace URISUserMicroService.DataAccess
                             [user].[User]
                         SET
                             [Name] = @Name,
+                            [LastName] = @LastName,
                             [Email] = @Email,
                             [Address] = @Address,
                             [ZipCode] = @ZipCode,
